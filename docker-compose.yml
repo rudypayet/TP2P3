@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  web:
+    image: payetrudy/web:latest
+    container_name: web
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: mysql
+      DB_USER: root
+      DB_PASSWORD: rootpass
+      DB_NAME: licences
+      AUTH_DB_HOST: flask-app
+      AUTH_DB_USER: admin
+      AUTH_DB_PASSWORD: adminpass
+      AUTH_DB_NAME: authdb
+    depends_on:
+      - mysql
+      - auth
+    networks:
+      - mynetwork
+
+  auth:
+    image: payetrudy/auth:latest
+    container_name: flask-app
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      FLASK_APP: app.py
+      FLASK_ENV: development
+      DB_HOST: postgres
+      DB_USER: admin
+      DB_PASSWORD: ddSMU1Kf8cbyOgD3D4hFftnkmYjwOpeA
+      DB_NAME: bd_auth
+      DB_PORT: 5432
+    networks:
+      - mynetwork
+
+  mysql:
+    image: payetrudy/mysql-licences:latest
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: licences
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+
+volumes:
+  mysql_data:
+

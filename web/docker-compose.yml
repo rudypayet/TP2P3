@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  web:
+    container_name: web
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=mysql
+      - DB_USER=root
+      - DB_PASSWORD=rootpass
+      - DB_NAME=licences
+      - AUTH_DB_HOST=flask-app
+      - AUTH_DB_USER=admin
+      - AUTH_DB_PASSWORD=adminpass
+      - AUTH_DB_NAME=authdb
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    external: true
