@@ -22,7 +22,70 @@ app.use(session({
 
 // Home route
 app.get('/', (req, res) => {
-    res.send('<h1>Welcome to the Authentication App</h1><form action="/login" method="POST"><input type="text" name="username" placeholder="Username" required/><input type="password" name="password" placeholder="Password" required/><button type="submit">Login</button></form>');
+    res.send(`
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Application d'Authentification</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f0f0f0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+            }
+            .container {
+                background-color: white;
+                padding: 2rem;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                text-align: center;
+            }
+            h1 {
+                color: #333;
+                margin-bottom: 1.5rem;
+            }
+            form {
+                display: flex;
+                flex-direction: column;
+            }
+            input {
+                margin-bottom: 1rem;
+                padding: 0.5rem;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+            }
+            button {
+                background-color: #4CAF50;
+                color: white;
+                padding: 0.5rem;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+            button:hover {
+                background-color: #45a049;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Bienvenue sur l'Application d'Authentification</h1>
+            <form action="/login" method="POST">
+                <input type="text" name="username" placeholder="Nom d'utilisateur" required/>
+                <input type="password" name="password" placeholder="Mot de passe" required/>
+                <button type="submit">Se connecter</button>
+            </form>
+        </div>
+    </body>
+    </html>
+    `);
 });
 
 // Login route
